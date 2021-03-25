@@ -13,7 +13,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
 ### From GitHub
 
 -   Download the Latest Release from the Releases section of the GitHub Repository
--   Copy the `main.js`, `styles.css` and `manifest.json` files from the release to your vault's plugins folder: `<vault>/.obsidian/plugins/`  
+-   Copy the `main.js` and `manifest.json` files from the release to your vault's plugins folder: `<vault>/.obsidian/plugins/`  
     Note: On some machines the `.obsidian` folder may be hidden. On MacOS you should be able to press `Command+Shift+Dot` to show the folder in Finder.
 -   Reload Obsidian
 -   If prompted about Safe Mode, you can disable safe mode and enable the plugin.
