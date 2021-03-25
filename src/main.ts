@@ -1,6 +1,6 @@
 import { MarkdownPostProcessorContext, Notice, Plugin } from "obsidian";
 
-import "./main.css";
+//import "./main.css";
 
 export default class ObsidianAdmonition extends Plugin {
     async onload(): Promise<void> {
@@ -50,6 +50,6 @@ export default class ObsidianAdmonition extends Plugin {
         }
     }
     onunload() {
-        console.log("Links in Code Blocks loaded");
+        console.log("Links in Code Blocks unloaded");
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "links-in-code-blocks",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Adds support for internal link previews in Obsidian.md",
     "main": "main.js",
     "scripts": {
