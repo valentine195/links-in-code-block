@@ -1,8 +1,8 @@
-import { MarkdownPostProcessorContext, Notice, Plugin } from "obsidian";
+import { MarkdownPostProcessorContext, Plugin } from "obsidian";
 
 //import "./main.css";
 
-export default class ObsidianAdmonition extends Plugin {
+export default class LinksInCodeBlock extends Plugin {
     async onload(): Promise<void> {
         console.log("Links in Code Blocks loaded");
 
@@ -10,7 +10,6 @@ export default class ObsidianAdmonition extends Plugin {
             "links",
             this.postprocessor.bind(this)
         );
-        
     }
     async postprocessor(
         src: string,
@@ -24,9 +23,9 @@ export default class ObsidianAdmonition extends Plugin {
                     link,
                     link
                 );
-                let div = createDiv();
+                const div = createDiv();
                 if (fileLink && fileLink.path) {
-                    let linkNode = div.createEl("a", {
+                    div.createEl("a", {
                         attr: {
                             "data-href": fileLink.path,
                             href: fileLink.path,
@@ -36,10 +35,6 @@ export default class ObsidianAdmonition extends Plugin {
                         cls: "internal-link",
                         text: fileLink.name
                     });
-                    console.log(
-                        "🚀 ~ file: main.ts ~ line 36 ~ ObsidianAdmonition ~ src.replace ~ linkNode",
-                        div.innerHTML
-                    );
                     return div.innerHTML;
                 }
                 return match;
