@@ -8,6 +8,21 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
 ```
 ````
 
+If you tell the plugin what language you're writing, it will run Obsidian's language highlighter:
+````markdown
+```links|clike
+#include
+
+int main(int argc, char** argv)
+{
+/* add your codes here */
+	printf("hello world ! \n");
+	return 0;
+	[[Path\To\Note]]
+}
+```
+````
+
 ## Installation
 
 ### From GitHub
