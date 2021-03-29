@@ -22,7 +22,7 @@ export default class LinksInCodeBlock extends Plugin {
     ) {
         MarkdownRenderer.renderMarkdown(
             src,
-            el,
+            el.createEl("pre").createEl("code"),
             ctx.sourcePath,
             this.app.workspace.activeLeaf.view
         );
