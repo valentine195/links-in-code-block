@@ -4,8 +4,7 @@ import {
     Plugin
 } from "obsidian";
 
-const { Prism } = window;
-
+import * as Prism from "./prism.js";
 export default class LinksInCodeBlock extends Plugin {
     async onload(): Promise<void> {
         console.log("Links in Code Blocks loaded");
@@ -17,7 +16,8 @@ export default class LinksInCodeBlock extends Plugin {
 
         let blocks = el.querySelectorAll(`code[class*="language-links"]`);
 
-        blocks.forEach((block: HTMLElement) => {
+        for (let i = 0; i < blocks.length; i++) {
+            const block = blocks[i];
             const pre = block.parentElement;
             pre.removeChild(block);
             let newBlock = pre.createEl("code");
@@ -28,52 +28,39 @@ export default class LinksInCodeBlock extends Plugin {
 
             let innerHTML = block.innerHTML.split(/(\[\[[\s\S]+?\]\])/g);
 
-            innerHTML.forEach((htmlBlock) => {
+            for (const htmlBlock of innerHTML) {
                 let code = createEl("code");
                 code.addClasses(Array.prototype.slice.call(block.classList));
+                console.log(htmlBlock);
                 if (/\[\[([\s\S]+)\]\]/.test(htmlBlock)) {
-                    const [, link] = htmlBlock.match(/\[\[([\s\S]+)\]\]/);
-                    const fileLink = this.app.metadataCache.getFirstLinkpathDest(
-                        link,
-                        link
+                    const tempLinkElement = createDiv();
+
+                    await MarkdownRenderer.renderMarkdown(
+                        htmlBlock,
+                        tempLinkElement,
+                        "",
+                        this.app.workspace.activeLeaf.view
                     );
-                    const div = createDiv();
-                    if (fileLink && fileLink.path) {
-                        div.createEl("a", {
-                            attr: {
-                                "data-href": fileLink.path,
-                                href: fileLink.path,
-                                target: "_blank",
-                                rel: "noopener"
-                            },
-                            cls: "internal-link",
-                            text: link
-                        });
-                    } else {
-                        div.createEl("a", {
-                            attr: {
-                                "data-href": link,
-                                href: link,
-                                target: "_blank",
-                                rel: "noopener"
-                            },
-                            cls: "internal-link is-unresolved",
-                            text: link
-                        });
-                    }
-                    code.innerHTML = div.innerHTML;
+                    code.innerHTML = tempLinkElement.getElementsByTagName(
+                        "a"
+                    )[0].outerHTML;
                 } else {
                     code.innerHTML = htmlBlock;
                     if (larr && larr.length && Prism) {
                         code.removeClass(`language-links|${larr[1]}`);
                         code.addClass(`language-${larr[1]}`);
+                        console.log(code);
                         Prism.highlightElement(code);
+
+                        if (!newBlock.hasClass(`language-${larr[1]}`)) {
+                            newBlock.addClass(`language-${larr[1]}`);
+                        }
                     }
                 }
                 code.addClass("is-loaded");
                 newBlock.innerHTML += code.innerHTML;
-            });
-        });
+            }
+        }
     }
     onunload() {
         console.log("Links in Code Blocks unloaded");
