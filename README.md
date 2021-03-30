@@ -9,8 +9,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
 ````
 
 If you tell the plugin what language you're writing, it will run Obsidian's language highlighter:
+
 ````markdown
-```links|clike
+```links|java
 #include
 
 int main(int argc, char** argv)
@@ -22,6 +23,8 @@ int main(int argc, char** argv)
 }
 ```
 ````
+
+Currently supports all [languages supported by Prism.js](https://prismjs.com/#supported-languages).
 
 ## Installation
 
