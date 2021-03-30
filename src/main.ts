@@ -31,7 +31,7 @@ export default class LinksInCodeBlock extends Plugin {
             for (const htmlBlock of innerHTML) {
                 let code = createEl("code");
                 code.addClasses(Array.prototype.slice.call(block.classList));
-                console.log(htmlBlock);
+
                 if (/\[\[([\s\S]+)\]\]/.test(htmlBlock)) {
                     const tempLinkElement = createDiv();
 
@@ -49,7 +49,7 @@ export default class LinksInCodeBlock extends Plugin {
                     if (larr && larr.length && Prism) {
                         code.removeClass(`language-links|${larr[1]}`);
                         code.addClass(`language-${larr[1]}`);
-                        console.log(code);
+                        
                         Prism.highlightElement(code);
 
                         if (!newBlock.hasClass(`language-${larr[1]}`)) {
